@@ -1,0 +1,10 @@
+sudo apt-get update
+
+sudo pip3 install adafruit-circuitpython-motorkit
+
+#If you happen to run into a permission error (as I did), you can delete the "Externally Managed" file from the directory
+#The simplest fix to the pip "externally-managed" error is to navigate to /usr/lib/python3.xx and delete the EXTERNALLY-MANAGED file in the directory. Here are the commands to do so:
+  #cd /usr/lib/python3.11
+  #sudo rm EXTERNALLY-MANAGED
+#If you choose to restore this mechanism, create the same file again with the touch command:
+  #sudo touch EXTERNALLY-MANAGED
