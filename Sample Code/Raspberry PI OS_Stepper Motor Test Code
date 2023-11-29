@@ -1,0 +1,54 @@
+# Below imports all neccessary packages to make this Python Script run
+import time
+import board
+from adafruit_motor import stepper
+from adafruit_motorkit import MotorKit
+
+# Below initialises the variable kit to be our I2C Connected Adafruit Motor HAT
+kit = MotorKit(i2c=board.I2C())
+
+# If you uncomment below it will start by de-energising the Stepper Motor,
+# Worth noting the final state the stepper motor is in is what will continue.
+# Energised Stepper Motors get HOT over time along with the electronic silicon drivers
+
+# kit.stepper1.release()
+
+# The below loop will run 500 times. Each loop it will move one step, clockwise, then pause for 0.01 seconds
+# This will almost look like a smooth rotation.
+
+for i in range(500):
+    
+    kit.stepper2.onestep()
+    time.sleep(0.01)
+
+# The below loop will run 500 times. Each loop it will move two step, anti-Clockwise, then pause for 0.01 seconds
+# This will almost look like a smooth rotation.
+
+for i in range(500):
+    
+    kit.stepper2.onestep(direction=stepper.BACKWARD, style=stepper.DOUBLE)
+    time.sleep(0.01)  
+
+# The below loop will run 500 times. Each loop it will move a Micro-step, anti-Clockwise, then pause for 0.01 seconds
+# This will rotate very very slowly.
+
+for i in range(500):
+
+    kit.stepper2.onestep(direction=stepper.BACKWARD, style=stepper.MICROSTEP)
+    time.sleep(0.01)
+
+# The below line will de-energise the Stepper Motor so it can freely move
+kit.stepper2.release()
+Thonny IDE Stepper Motor Script
+Then save your file (as anything you'd like to call it), make sure your hands are away from any spinning machinery, and press the big green run button. The second you do your stepper motor will spring to life! This script will first rotate the shaft 500 Full Steps every 0.01 seconds. To our human eyes, this looks like smooth movement but really it is a whole bunch of small steps repeated. Once it has done that it will go in the opposite direction using Double Steps. This will rotate twice as fast as before. This demonstrates that there are different ways to step through rotation. Once it does that for 500 steps it then continues rotating in the same direction of rotation very slowly as it is now utilising Micro-Stepping. Micro-Stepping is a way to break down each step into even smaller segments, allowing even more control over the exact angular positioning of the stepper motor. See the Stepper Motor rotating in the image below.
+
+Stepper Motor Rotating
+
+A Note on Stacking the HATs
+Each board in a HAT stack needs a unique I2C address. On the top side of the board is solderable address jumpers. If you solder these connections together you will be able to change the default I2C Address of the board. Having done that you will be able to stack and communicate to them correctly. For example, in if you solder the second jumper you will need to set that new I2C address into your Python Script, | Kit1 = MotorKit() | is for default. That would be changed to | Kit1 = MotorKit(address=0x61) | when the second jumper is soldered together.
+
+Jumper Locations to change what the Adress of your HAT will be
+
+Download Python Scripts
+Here is a Download Link for all the Python Scripts utilised in this guide. For ideas on what to do with Motor Control to just check out this! 
+
